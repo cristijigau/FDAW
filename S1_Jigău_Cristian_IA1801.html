@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>S1 Jigau Cristian</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+
+	<center><b>A realizat: Jigău Cristian IA1801ro.</b> Repozitoriu github: <a href="https://github.com/cristijigau/FDAW">aici</a> </center>
+
+	<div ng-app="" ng-init="a=0;b=0;tabla=[1,2,3,4,5,6,7,8,9];">
+
+		a = <input type="number" ng-model="a"> <br>
+		b = <input type="number" ng-model="b"> <br>
+
+		<b>suma:</b> <br>
+		 a + b = {{a}} + {{b}} = {{ a + b }} <br>
+		<b>diferenta:</b> <br>
+		 a - b = {{a}} - {{b}} = {{ a - b }} <br>
+		 b - a = {{b}} - {{a}} = {{ b - a }} <br>
+		<b>produsul:</b> <br>
+		 a * b = {{a}} * {{b}} = {{ a * b }} <br>
+		<b>catul:</b> <br>
+		 a / b = {{a}} / {{b}} = {{ a / b }} <br>
+		 b / a = {{b}} / {{a}} = {{ b / a }} <br><br>
+
+		<b>Tabla inmultirii la {{a}} (Fara ng-repeat) </b> <br>
+		{{a}} x 1 = {{a*1}} <br>
+		{{a}} x 2 = {{a*2}} <br>
+		{{a}} x 3 = {{a*3}} <br>
+		{{a}} x 4 = {{a*4}} <br>
+		{{a}} x 5 = {{a*5}} <br>
+		{{a}} x 6 = {{a*6}} <br>
+		{{a}} x 7 = {{a*7}} <br>
+		{{a}} x 8 = {{a*8}} <br>
+		{{a}} x 9 = {{a*9}} <br> <br>
+
+		<b>Tabla inmultirii la {{a}} (Cu ng-repeat) </b>
+		<p ng-repeat="x in tabla">{{a}} x {{x}} = {{a*x}}</p>
+
+	</div>
+
+</body>
+</html>
