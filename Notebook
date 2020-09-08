@@ -1,0 +1,4 @@
+# AngularJS 
+
+(Notițe personale).
+AngularJS expressions do not support conditionals, loops, and exceptions, while JavaScript expressions do.
