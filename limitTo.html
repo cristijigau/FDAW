@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="MyApp" ng-controller="MyCtrl">
+	Primul caracter:<input type="text" ng-model="filtruM">
+	{{filtruM}}
+<ul>
+	<li ng-repeat="x in studenti | filter:filtruM">{{x.nume +" "+x.prenume | limitTo:1}}</li>
+</ul>
+</div>
+<script>
+	var app = angular.module('MyApp',[]);
+	app.controller('MyCtrl', function($scope){
+		$scope.studenti = [
+		{nume:'Jigau', prenume:'Cristian'},
+		{nume:'Jigau', prenume:'Radu'},
+		{nume:'Botnaru', prenume:'Corneliu'},
+		{nume:'Cibotaru', prenume:'Adrian'},
+		{nume:'Rotari', prenume:'Elena'},
+		{nume:'Moraru', prenume:'Elena'},
+		];
+	});
+	</script>
+</body>
+</html>
