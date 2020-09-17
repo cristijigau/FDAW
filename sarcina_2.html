@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="MyApp" ng-controller="MyCtrl">
+	<h3>Serviciu: x^2</h3>
+	x = <input type="number" ng-model="x" ng-change="actualizare()">
+	<p>Rezultat: {{ x2 }}</p>
+<center><em>A realizat: <b>Jigau Cristian</b></em></center>
+</div>
+<script>
+	var app = angular.module('MyApp',[]);
+
+	app.service('ridica', function() {
+  		this.laPatrat = function (x) {
+    	return x*x;
+  		} 
+	});
+
+	app.controller('MyCtrl', function($scope,ridica){
+		$scope.actualizare = function(){
+			$scope.x2 = ridica.laPatrat($scope.x);
+		}
+	});
+	</script>
+</body>
+</html>
