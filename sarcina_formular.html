@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Formular</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="formCtrl">
+  <form novalidate>
+ 	<b>Nume:</b> <input type="text" name="nume" ng-model="nume"> 
+ 	<b>Prenume:</b> <input type="text" name="prenume" ng-model="prenume"> 
+ 	<br><br>
+ 	<b>Gen:</b>
+ 	feminin <input type="radio" ng-model="gen" value="feminin">
+    masculin <input type="radio" ng-model="gen" value="masculin">
+    <br><br>
+ 	<b>Studii:</b>
+    <select ng-model="studii" ng-options="x.tip for x in tipStudii"></select> 
+    <br><br>
+    <button ng-click='submit()'>Rezultat</button>
+  </form>
+  <br><br>
+  <p><b>Rezultat cu apasare buton:</b></p>
+  Nume: {{rezultat.nume}} <br>
+  Prenume: {{rezultat.prenume}} <br>
+  Gen: {{rezultat.gen}} <br>
+  Studii: {{rezultat.studii}}<br>
+  Salariu: {{rezultat.salariu}}<br>
+  <p><b>Rezultat fara apasare buton:</b></p>
+  <b>Nume: </b>{{ nume }}<br>
+  <b>Prenume: </b>{{ prenume }}<br>
+  <b> Gen: </b> {{ gen }}<br>
+  <b> Studii: </b> {{ studii.tip }}<br>
+  <b> Salariu: </b> {{ studii.salariu }}
+</div>
+
+<script>
+	var app = angular.module('myApp',[]);
+	app.controller('formCtrl',function($scope){
+		$scope.rezultat = {nume: '',prenume:'',gen:'',studii:'', salariu: 0,};
+		$scope.tipStudii = [
+		{tip: 'medii', salariu: 5000,},
+		{tip: 'medii speciale', salariu: 5000,},
+		{tip: 'superioare', salariu: 10000,},
+		{tip: 'doctor habilitat', salariu: 15000,},
+		];
+	$scope.submit = function(){
+		$scope.rezultat.nume = $scope.nume;
+		$scope.rezultat.prenume = $scope.prenume;
+		$scope.rezultat.gen = $scope.gen;
+		$scope.rezultat.studii = $scope.studii.tip;
+		if($scope.studii.tip == 'medii' || $scope.studii.tip == 'medii speciale' ) $scope.rezultat.salariu = 5000;
+		else if($scope.studii.tip == 'superioare' )$scope.rezultat.salariu = 10000;
+		else if($scope.studii.tip == 'doctor habilitat') $scope.rezultat.salariu = 15000;
+	};
+	});
+</script>
+
+
+</body>
+</html>
