@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gara Trenuri</title>
+	<script src="https://kit.fontawesome.com/d90fcbd324.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<style type="text/css">
+		*{
+		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
+		}
+		html, body{
+		height: 100vh;
+		margin: 0;
+		padding: 0;
+		}
+		ol,ul {
+    		list-style:none;
+    	}
+		.container{
+			width: 100%;
+			height: 100vh;
+			background-color: grey;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.header{
+			background-color: yellow;
+			height: 10%;
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: 
+		}
+		.main-section{
+			height: 80%;
+			width: 80%;
+			background-color: white;
+		}
+		.footer{
+			background-color: red;
+			height: 10%;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+		.logo{
+			background-color: blue;
+			width: 10%;
+		}
+		.menu{
+			background-color: pink;
+			width: 80%;
+			display: flex;
+			align-items: center;
+		}
+		.menu ul{
+			flex:1;
+			height: 70%;
+			background: green;
+			display: flex;
+			flex-direction: row;
+		}
+		.menu .first{
+			width: 80%;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-content: center;
+		}
+		.menu .last{
+			width: 20%;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+			align-content: center;
+		}
+		.menu .first li, .menu .last li{
+			margin: 5px;
+			cursor: pointer;
+			border: 2px solid #ACBED8;
+			border-radius: 2px;
+			background: #ACBED8;
+			padding: 10px;
+			color: white;
+			transition: background 0.5s;
+		}
+		.menu .first li:hover, .menu .last li:hover{
+			background: #E8EBF7;
+			color: #AEB9BF;
+		}
+		ul.acasa .first .acasa,
+		ul.anunturi .first .anunturi,
+		ul.bilete .first .bilete,
+		ul.contacte .first .contacte{
+			background-color:#D78521;
+			border-color: #D78521;
+		}
+
+	.modal-container{
+		position: fixed;
+		background: rgba(0, 0, 0, 0.7);
+		width: 100vw;
+		height: 100vh;
+		z-index: 100;
+		display: flex;
+	}
+	.modal-message-container{
+		background-color: white;
+		width: 50vw;
+		height: 50vh;
+		margin: auto;
+		opacity: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.modal-message-header{
+	  	background-color: #EDEDED;
+	  	flex:1;
+	  	text-align: center;
+	  	color: #41403F;
+	}
+	.modal-message-header h1{
+		margin-top: 0.5em;
+		font-family: Oswald;
+	}
+	.modal-message-content{
+		background-color: white;
+		flex:3;
+		padding: 2em;
+		font-family: Oswald;
+	}
+	.modal-message-footer{
+		background-color: white;
+		flex:1;
+	}
+	.modal-close-btn{
+		flex:none;
+		position: absolute;
+		top: 4em;
+		right: 12em;
+		background-color: transparent;
+  		border: none;
+  		color: white;
+  		padding: 12px 16px;
+  		font-size: 26px;
+  		cursor: pointer;
+	}
+	.modal-close-btn i:hover{
+		color: #FF6733;
+	}
+	.modal-message-content form{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.modal-message-content form input, .modal-message-content form button {
+		width: 50%;
+		padding: 2%;
+	}
+	</style>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="formCtrl">
+
+	<div class="modal-container" ng-show="flag">
+		<button class="modal-close-btn" ng-click="closeModal()"><i class="fa fa-close"></i></button>
+		<div class="modal-message-container">
+			<div class="modal-message-header">
+				<h1>Autentificare</h1>
+			</div>
+			<div class="modal-message-content">
+				<form>
+				<input type="text" name="login" ng-model="intermediar.nume" placeholder="Login">
+				<input type="password" name="parola" ng-model="intermediar.parola" placeholder="Parola">
+				<button ng-click="autentificare()">Autentificare</button>
+				<input type="reset" name="reset">
+				{{status}}
+				<p ng-show='nuExista'>Nu exista asa cont!</p>
+				<p>Conturi:</p>
+				<p ng-repeat="x in conturi">{{"login: " + x.nume + " " + "parola: " + x.parola}}
+				</form>
+			</div>
+			<div class="modal-message-footer">
+		
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-container" ng-show="flag2">
+		<button class="modal-close-btn" ng-click="closeModal()"><i class="fa fa-close"></i></button>
+		<div class="modal-message-container">
+			<div class="modal-message-header">
+				<h1>Inregistrare</h1>
+			</div>
+			<div class="modal-message-content">
+				<form>
+				<input type="text" name="login" ng-model="nume" placeholder="Login">
+				<input type="password" name="parola1" ng-model="parola1" placeholder="Parola">
+				<input type="password" name="parola2" ng-model="parola2" placeholder="Confirma Parola">
+				<button ng-click="signUp()">Inregistrare</button>
+				<input type="reset" name="reset">
+				<p ng-show='coincidenta'>Deja exista asa cont!</p>
+				<p>Conturi:</p>
+				<p ng-repeat="x in conturi">{{"login: " + x.nume + " " + "parola: " + x.parola}}
+				</form>
+			</div>
+			<div class="modal-message-footer">
+		
+			</div>
+		</div>
+	</div>
+
+		<div class="container" ng-init="schimbaPagina('acasa'); active='acasa'">
+			<div class="header">
+				<div class="logo" id="logo">
+					logo
+				</div>
+				<div class="menu">
+					<ul class="{{active}}">
+				    <div class="first">
+					<li ng-click="schimbaPagina('acasa'); active='acasa'" class="acasa">Acasa</li>
+					<li ng-click="schimbaPagina('anunturi'); active='anunturi'" class="anunturi">Anunturi</li>
+					<li ng-click="schimbaPagina('bilete'); active='bilete'" class="bilete">Bilete</li>
+					<li ng-click="schimbaPagina('contacte'); active='contacte'" class="contacte">Contacte</li>
+				    </div>
+					<div class="last">
+					<li ng-click="openModal()">Log-in</li>
+					<li ng-click="logOut()" ng-if="autentificat">Log-out</li>
+					<li ng-click="openModal2()" ng-if="!autentificat">Sign-up</li>
+					</div>
+					</ul>
+				</div>
+				<div class="ending">
+					{{ status }}
+					<p ng-if="autentificat">{{ "login: " + intermediar.nume }}</p>
+				</div>
+			</div>
+			<div class="main-section">
+				{{active}}
+		<div ng-show='Acasa'>Acasa</div>
+		<div ng-show='Anunturi'>Anunturi</div>
+		<div ng-show='Bilete'>Bilete</div>
+		<div ng-show='Contacte'>Contacte</div>
+			</div>
+			<div class="footer">
+				<center>&#169 Jigău Cristian</center>
+				<center>{{ azi | date : "medium" }}</center>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module('myApp',[]); 
+		app.controller('formCtrl',function($scope){
+			$scope.status = "Ne autentificat";
+			$scope.schimbaPagina = function(e){
+				$scope.Acasa = false;
+				$scope.Anunturi = false;
+				$scope.Bilete = false;
+				$scope.Contacte = false;
+				switch(e){
+					case 'acasa': $scope.Acasa = true; break;
+					case 'anunturi': $scope.Anunturi = true; break;
+					case 'bilete': $scope.Bilete = true;  break;
+					case 'contacte': $scope.Contacte = true; break;
+				}
+			};
+			$scope.closeModal = function (){
+				$scope.flag = false;
+				$scope.flag2 = false;
+			};
+			$scope.openModal = function (){
+				$scope.flag = true;
+			};
+			$scope.openModal2 = function (){
+				$scope.flag2 = true;
+			};
+			$scope.intermediar ={
+				nume:"",
+				parola:""
+			};
+			$scope.autentificat = false;
+			$scope.conturi = [{
+				nume: 'admin',
+				parola: 'admin'
+			}];
+			$scope.autentificare = function(){
+				$scope.conturi.forEach(function(arrayItem){
+					if(arrayItem.nume == $scope.intermediar.nume && arrayItem.parola == $scope.intermediar.parola){
+						$scope.autentificat = true;
+						$scope.nuExista = false;
+						$scope.status = "Autentificat";
+					} else $scope.nuExista = true;
+				});
+			};
+			$scope.logOut = function(){
+				$scope.intermediar.nume = "";
+				$scope.intermediar.prenume = "";
+				$scope.autentificat = false;
+				$scope.status = "Ne autentificat";
+			};
+			
+			$scope.signUp = function(){
+				if($scope.parola1 == $scope.parola2){
+					$scope.conturi.forEach(function(arrayItem){
+					if(arrayItem.nume == $scope.nume && arrayItem.parola == $scope.parola1){
+						$scope.coincidente = true;
+					}
+					else {$scope.conturi.push({ nume: $scope.nume, parola: $scope.parola1 }); 
+					$scope.coincidente = false;}
+					});
+				}
+			};	
+		});
+	</script>
+</body>
+</html>
